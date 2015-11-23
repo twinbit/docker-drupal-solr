@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV SOLR_VERSION 4.10.2
+ENV SOLR_VERSION 4.10.4
 ENV SOLR solr-$SOLR_VERSION
 
 # install java and wget
