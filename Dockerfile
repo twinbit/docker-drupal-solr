@@ -24,8 +24,19 @@ RUN mkdir -p /opt && \
     rm /opt/$SOLR.tgz && \
     ln -s /opt/$SOLR /opt/solr
 
-# Copy search_api_solr 4.x configuration
-COPY conf/* /opt/solr/example/solr/collection1/conf/
+# Release from search_api_solr
+# https://www.drupal.org/node/982682/release
+ENV SEARCH_API_SOLR_VERSION=7.x-1.10
+
+# Dowload and copy configuration
+RUN export SOLR_MAJOR_VERSION=`echo $SOLR_VERSION | cut -f1 -d.` && \
+    env && \
+    wget --progress=bar:force --output-document=/tmp/search_api_solr.zip \
+    https://ftp.drupal.org/files/projects/search_api_solr-$SEARCH_API_SOLR_VERSION.zip && \
+    unzip /tmp/search_api_solr.zip -d /tmp/search_api_solr && \
+    cp -r /tmp/search_api_solr/search_api_solr/solr-conf/$SOLR_MAJOR_VERSION.x/* /opt/solr/example/solr/collection1/conf/ && \
+    rm -rf /tmp/search_api_solr
+
 
 EXPOSE 8983
 WORKDIR /opt/solr/example
