@@ -2,9 +2,6 @@ FROM ubuntu:14.04
 MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV SOLR_VERSION 4.10.2
-ENV SOLR solr-$SOLR_VERSION
-
 # install java and wget
 RUN apt-get update && \
     apt-get install -y \
@@ -15,6 +12,9 @@ RUN apt-get update && \
     lsof \
     curl \
     procps
+
+ENV SOLR_VERSION 4.10.2
+ENV SOLR solr-$SOLR_VERSION
 
 # download and install solr
 WORKDIR /tmp
